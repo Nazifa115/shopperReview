@@ -7,6 +7,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.widget.Button;
 
 import com.capricorn.ArcMenu;
 import com.moulik.shopperreview.util.SystemUiHider;
@@ -28,7 +33,7 @@ public class HomeScreenActivity extends Activity {
 	 * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
 	 * user interaction before hiding the system UI.
 	 */
-	private static final int AUTO_HIDE_DELAY_MILLIS = 3000;
+	private static final int AUTO_HIDE_DELAY_MILLIS = 1500;
 
 	/**
 	 * If set, will toggle the system UI visibility upon interaction. Otherwise,
@@ -46,17 +51,34 @@ public class HomeScreenActivity extends Activity {
 	 */
 	private SystemUiHider mSystemUiHider;
 
+	private View controlsView;
+	private ArcMenu arcMenu;
+	private Animation animation;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_home_screen);
 
-		final View controlsView = findViewById(R.id.fullscreen_content_controls);
+		controlsView = findViewById(R.id.fullscreen_content_controls);
 		//final View contentView = findViewById(R.id.fullscreen_content);
-		ArcMenu arcMenu = (ArcMenu) findViewById(R.id.fullscreen_content);
+		arcMenu = (ArcMenu) findViewById(R.id.fullscreen_content);
 		// Set up an instance of SystemUiHider to control the system UI for
-		// this activity.
+		animation = new AlphaAnimation((float)0.8, (float)0.3); // Change alpha from fully visible to invisible
+	    animation.setDuration(1000); // duration - half a second
+	    animation.setInterpolator(new LinearInterpolator()); // do not alter animation rate
+	    animation.setRepeatCount(Animation.INFINITE); // Repeat animation infinitely
+	    animation.setRepeatMode(Animation.REVERSE); // Reverse animation at the end so the button will fade back in
+	    //arcMenu.startAnimation(animation);
+	    final Button btn = (Button) findViewById(R.id.home_button);
+	    btn.startAnimation(animation);
+	    btn.setOnClickListener(new OnClickListener() {
+	        @Override
+	        public void onClick(final View view) {
+	            view.clearAnimation();
+	        }
+	    });		
 		mSystemUiHider = SystemUiHider.getInstance(this, arcMenu,
 				HIDER_FLAGS);
 		mSystemUiHider.setup();
@@ -104,11 +126,12 @@ public class HomeScreenActivity extends Activity {
 		arcMenu.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
+				//arcMenu.clearAnimation();
 				if (TOGGLE_ON_CLICK) {
-					mSystemUiHider.toggle();
-				} else {
-					mSystemUiHider.show();
-				}
+				 mSystemUiHider.toggle();
+				 } else {
+				 mSystemUiHider.show();
+				 }
 			}
 		});
 

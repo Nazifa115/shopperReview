@@ -64,16 +64,15 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int home=0x7f020007;
         public static final int home_button=0x7f020008;
         public static final int home_icon=0x7f020009;
-        public static final int home_icon_prev=0x7f02000a;
-        public static final int home_icon_transparent=0x7f02000b;
-        public static final int ic_launcher=0x7f02000c;
+        public static final int ic_launcher=0x7f02000a;
     }
     public static final class id {
-        public static final int control_hint=0x7f080005;
-        public static final int control_layout=0x7f080004;
+        public static final int control_hint=0x7f080006;
+        public static final int control_layout=0x7f080005;
         public static final int dummy_button=0x7f080002;
         public static final int fullscreen_content=0x7f080000;
         public static final int fullscreen_content_controls=0x7f080001;
+        public static final int home_button=0x7f080004;
         public static final int item_layout=0x7f080003;
     }
     public static final class layout {
