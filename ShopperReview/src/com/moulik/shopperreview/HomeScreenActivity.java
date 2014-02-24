@@ -1,7 +1,5 @@
 package com.moulik.shopperreview;
 
-import com.moulik.shopperreview.util.SystemUiHider;
-
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.os.Build;
@@ -9,6 +7,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
+
+import com.capricorn.ArcMenu;
+import com.moulik.shopperreview.util.SystemUiHider;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -52,11 +53,11 @@ public class HomeScreenActivity extends Activity {
 		setContentView(R.layout.activity_home_screen);
 
 		final View controlsView = findViewById(R.id.fullscreen_content_controls);
-		final View contentView = findViewById(R.id.fullscreen_content);
-
+		//final View contentView = findViewById(R.id.fullscreen_content);
+		ArcMenu arcMenu = (ArcMenu) findViewById(R.id.fullscreen_content);
 		// Set up an instance of SystemUiHider to control the system UI for
 		// this activity.
-		mSystemUiHider = SystemUiHider.getInstance(this, contentView,
+		mSystemUiHider = SystemUiHider.getInstance(this, arcMenu,
 				HIDER_FLAGS);
 		mSystemUiHider.setup();
 		mSystemUiHider
@@ -100,7 +101,7 @@ public class HomeScreenActivity extends Activity {
 				});
 
 		// Set up the user interaction to manually show or hide the system UI.
-		contentView.setOnClickListener(new View.OnClickListener() {
+		arcMenu.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				if (TOGGLE_ON_CLICK) {
