@@ -61,29 +61,36 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int composer_icn_plus_normal=0x7f020004;
         public static final int composer_icn_plus_pressed=0x7f020005;
         public static final int dark_red_led_circle=0x7f020006;
-        public static final int home=0x7f020007;
-        public static final int home_button=0x7f020008;
-        public static final int home_icon=0x7f020009;
-        public static final int ic_launcher=0x7f02000a;
+        public static final int forum_icon=0x7f020007;
+        public static final int home=0x7f020008;
+        public static final int home_button=0x7f020009;
+        public static final int home_icon=0x7f02000a;
+        public static final int ic_launcher=0x7f02000b;
+        public static final int product_icon=0x7f02000c;
+        public static final int settings_icon=0x7f02000d;
+        public static final int shop_icon=0x7f02000e;
+        public static final int store_owner=0x7f02000f;
     }
     public static final class id {
         public static final int control_hint=0x7f080006;
-        public static final int control_layout=0x7f080005;
+        public static final int control_layout=0x7f080004;
         public static final int dummy_button=0x7f080002;
         public static final int fullscreen_content=0x7f080000;
         public static final int fullscreen_content_controls=0x7f080001;
-        public static final int home_button=0x7f080004;
+        public static final int home_button=0x7f080005;
         public static final int item_layout=0x7f080003;
     }
     public static final class layout {
         public static final int activity_home_screen=0x7f030000;
-        public static final int arc_menu=0x7f030001;
-        public static final int ray_menu=0x7f030002;
+        public static final int activity_secondary=0x7f030001;
+        public static final int arc_menu=0x7f030002;
+        public static final int ray_menu=0x7f030003;
     }
     public static final class string {
         public static final int app_name=0x7f060000;
         public static final int dummy_button=0x7f060001;
         public static final int dummy_content=0x7f060002;
+        public static final int title_activity_secondary=0x7f060003;
     }
     public static final class style {
         /** 

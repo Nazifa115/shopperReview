@@ -1,5 +1,7 @@
 package com.moulik.shopperreview;
 
+import com.moulik.shopperreview.util.SystemUiHider;
+
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.os.Build;
@@ -7,16 +9,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.LinearInterpolator;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.Toast;
-
-import com.capricorn.ArcMenu;
-import com.moulik.shopperreview.util.SystemUiHider;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -24,7 +16,7 @@ import com.moulik.shopperreview.util.SystemUiHider;
  * 
  * @see SystemUiHider
  */
-public class HomeScreenActivity extends Activity {
+public class SecondaryActivity extends Activity {
 	/**
 	 * Whether or not the system UI should be auto-hidden after
 	 * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -35,7 +27,7 @@ public class HomeScreenActivity extends Activity {
 	 * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
 	 * user interaction before hiding the system UI.
 	 */
-	private static final int AUTO_HIDE_DELAY_MILLIS = 1500;
+	private static final int AUTO_HIDE_DELAY_MILLIS = 3000;
 
 	/**
 	 * If set, will toggle the system UI visibility upon interaction. Otherwise,
@@ -53,40 +45,18 @@ public class HomeScreenActivity extends Activity {
 	 */
 	private SystemUiHider mSystemUiHider;
 
-	private View controlsView;
-	private ArcMenu arcMenu;
-	private Animation animation;
-	private Button btn;
-	private int[] ITEM_DRAWABLES = { R.drawable.product_icon, R.drawable.shop_icon,
-		R.drawable.store_owner, R.drawable.settings_icon, R.drawable.forum_icon };
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.activity_home_screen);
+		setContentView(R.layout.activity_secondary);
 
-		controlsView = findViewById(R.id.fullscreen_content_controls);
-		//final View contentView = findViewById(R.id.fullscreen_content);
-		arcMenu = (ArcMenu) findViewById(R.id.fullscreen_content);
+		final View controlsView = findViewById(R.id.fullscreen_content_controls);
+		final View contentView = findViewById(R.id.fullscreen_content);
+
 		// Set up an instance of SystemUiHider to control the system UI for
-		animation = new AlphaAnimation((float)1.0, (float)0.3); // Change alpha from fully visible to invisible
-	    animation.setDuration(1000); // duration - half a second
-	    animation.setInterpolator(new LinearInterpolator()); // do not alter animation rate
-	    animation.setRepeatCount(Animation.INFINITE); // Repeat animation infinitely
-	    animation.setRepeatMode(Animation.REVERSE); // Reverse animation at the end so the button will fade back in
-	    //arcMenu.startAnimation(animation);
-	    
-	    btn = (Button) findViewById(R.id.home_button);
-	    btn.startAnimation(animation);
-	    btn.setOnClickListener(new OnClickListener() {
-	        @Override
-	        public void onClick(final View view) {
-	            view.clearAnimation();
-	        }
-	    });
-	    
-		mSystemUiHider = SystemUiHider.getInstance(this, arcMenu,
+		// this activity.
+		mSystemUiHider = SystemUiHider.getInstance(this, contentView,
 				HIDER_FLAGS);
 		mSystemUiHider.setup();
 		mSystemUiHider
@@ -130,16 +100,14 @@ public class HomeScreenActivity extends Activity {
 				});
 
 		// Set up the user interaction to manually show or hide the system UI.
-		arcMenu.setOnClickListener(new View.OnClickListener() {
+		contentView.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				btn.clearAnimation();
-				//initArcMenu(arcMenu, ITEM_DRAWABLES);
-//				if (TOGGLE_ON_CLICK) {
-//				 mSystemUiHider.toggle();
-//				 } else {
-//				 mSystemUiHider.show();
-//				 }
+				if (TOGGLE_ON_CLICK) {
+					mSystemUiHider.toggle();
+				} else {
+					mSystemUiHider.show();
+				}
 			}
 		});
 
@@ -148,26 +116,7 @@ public class HomeScreenActivity extends Activity {
 		// while interacting with the UI.
 		findViewById(R.id.dummy_button).setOnTouchListener(
 				mDelayHideTouchListener);
-		
-		//initArcMenu(arcMenu, ITEM_DRAWABLES);
 	}
-
-	 private void initArcMenu(ArcMenu menu, int[] itemDrawables) {
-        final int itemCount = itemDrawables.length;
-        for (int i = 0; i < itemCount; i++) {
-            ImageView item = new ImageView(this);
-            item.setImageResource(itemDrawables[i]);
-
-            final int position = i;
-            menu.addItem(item, new OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(HomeScreenActivity.this, "position:" + position, Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
-    }
 
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
@@ -176,7 +125,7 @@ public class HomeScreenActivity extends Activity {
 		// Trigger the initial hide() shortly after the activity has been
 		// created, to briefly hint to the user that UI controls
 		// are available.
-		delayedHide(500);
+		delayedHide(100);
 	}
 
 	/**
