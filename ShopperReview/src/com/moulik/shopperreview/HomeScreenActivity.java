@@ -1,11 +1,7 @@
 package com.moulik.shopperreview;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.AlphaAnimation;
@@ -53,106 +49,111 @@ public class HomeScreenActivity extends Activity {
 	 */
 	private SystemUiHider mSystemUiHider;
 
-	private View controlsView;
+	//private View controlsView;
 	private ArcMenu arcMenu;
 	private Animation animation;
-	private Button btn;
-	private int[] ITEM_DRAWABLES = { R.drawable.product_icon, R.drawable.shop_icon,
-		R.drawable.store_owner, R.drawable.settings_icon, R.drawable.forum_icon };
+	
+	private static int[] ITEM_DRAWABLES = { R.drawable.product_icon, R.drawable.shop_icon,
+		R.drawable.store_owner, R.drawable.settings_icon, R.drawable.forum_icon};
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_home_screen);
+		
+		
 
-		controlsView = findViewById(R.id.fullscreen_content_controls);
+		//controlsView = findViewById(R.id.fullscreen_content_controls);
 		//final View contentView = findViewById(R.id.fullscreen_content);
 		arcMenu = (ArcMenu) findViewById(R.id.fullscreen_content);
 		// Set up an instance of SystemUiHider to control the system UI for
-		animation = new AlphaAnimation((float)1.0, (float)0.3); // Change alpha from fully visible to invisible
+		animation = new AlphaAnimation((float)0.8, (float)0.3); // Change alpha from fully visible to invisible
 	    animation.setDuration(1000); // duration - half a second
 	    animation.setInterpolator(new LinearInterpolator()); // do not alter animation rate
 	    animation.setRepeatCount(Animation.INFINITE); // Repeat animation infinitely
 	    animation.setRepeatMode(Animation.REVERSE); // Reverse animation at the end so the button will fade back in
 	    //arcMenu.startAnimation(animation);
+	    initArcMenu(arcMenu, ITEM_DRAWABLES);
+//	    final Button btn = (Button) findViewById(R.id.home_button);
+//	    btn.startAnimation(animation);
+//	    btn.setOnClickListener(new OnClickListener() {
+//	        @Override
+//	        public void onClick(final View view) {
+//	            view.clearAnimation();
+//	            initArcMenu(arcMenu, ITEM_DRAWABLES);
+//	        }
+//	    });	
 	    
-	    btn = (Button) findViewById(R.id.home_button);
-	    btn.startAnimation(animation);
-	    btn.setOnClickListener(new OnClickListener() {
-	        @Override
-	        public void onClick(final View view) {
-	            view.clearAnimation();
-	        }
-	    });
 	    
-		mSystemUiHider = SystemUiHider.getInstance(this, arcMenu,
-				HIDER_FLAGS);
-		mSystemUiHider.setup();
-		mSystemUiHider
-				.setOnVisibilityChangeListener(new SystemUiHider.OnVisibilityChangeListener() {
-					// Cached values.
-					int mControlsHeight;
-					int mShortAnimTime;
+//		mSystemUiHider = SystemUiHider.getInstance(this, arcMenu,
+//				HIDER_FLAGS);
+//		mSystemUiHider.setup();
+	
+	    
+//		mSystemUiHider
+//				.setOnVisibilityChangeListener(new SystemUiHider.OnVisibilityChangeListener() {
+//					// Cached values.
+//					int mControlsHeight;
+//					int mShortAnimTime;
+//
+//					@Override
+//					@TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+//					public void onVisibilityChange(boolean visible) {
+//						if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+//							// If the ViewPropertyAnimator API is available
+//							// (Honeycomb MR2 and later), use it to animate the
+//							// in-layout UI controls at the bottom of the
+//							// screen.
+//							if (mControlsHeight == 0) {
+//								mControlsHeight = controlsView.getHeight();
+//							}
+//							if (mShortAnimTime == 0) {
+//								mShortAnimTime = getResources().getInteger(
+//										android.R.integer.config_shortAnimTime);
+//							}
+//							controlsView
+//									.animate()
+//									.translationY(visible ? 0 : mControlsHeight)
+//									.setDuration(mShortAnimTime);
+//						} else {
+//							// If the ViewPropertyAnimator APIs aren't
+//							// available, simply show or hide the in-layout UI
+//							// controls.
+//							controlsView.setVisibility(visible ? View.VISIBLE
+//									: View.GONE);
+//						}
+//
+//						if (visible && AUTO_HIDE) {
+//							// Schedule a hide().
+//							delayedHide(AUTO_HIDE_DELAY_MILLIS);
+//						}
+//					}
+//				});
 
-					@Override
-					@TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-					public void onVisibilityChange(boolean visible) {
-						if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-							// If the ViewPropertyAnimator API is available
-							// (Honeycomb MR2 and later), use it to animate the
-							// in-layout UI controls at the bottom of the
-							// screen.
-							if (mControlsHeight == 0) {
-								mControlsHeight = controlsView.getHeight();
-							}
-							if (mShortAnimTime == 0) {
-								mShortAnimTime = getResources().getInteger(
-										android.R.integer.config_shortAnimTime);
-							}
-							controlsView
-									.animate()
-									.translationY(visible ? 0 : mControlsHeight)
-									.setDuration(mShortAnimTime);
-						} else {
-							// If the ViewPropertyAnimator APIs aren't
-							// available, simply show or hide the in-layout UI
-							// controls.
-							controlsView.setVisibility(visible ? View.VISIBLE
-									: View.GONE);
-						}
-
-						if (visible && AUTO_HIDE) {
-							// Schedule a hide().
-							delayedHide(AUTO_HIDE_DELAY_MILLIS);
-						}
-					}
-				});
-
+	    
+	    
 		// Set up the user interaction to manually show or hide the system UI.
-		arcMenu.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				btn.clearAnimation();
-				//initArcMenu(arcMenu, ITEM_DRAWABLES);
+//		arcMenu.setOnClickListener(new View.OnClickListener() {
+//			@Override
+//			public void onClick(View view) {
+//				arcMenu.clearAnimation();
 //				if (TOGGLE_ON_CLICK) {
 //				 mSystemUiHider.toggle();
 //				 } else {
 //				 mSystemUiHider.show();
 //				 }
-			}
-		});
+//			}
+//		});
 
 		// Upon interacting with UI controls, delay any scheduled hide()
 		// operations to prevent the jarring behavior of controls going away
 		// while interacting with the UI.
-		findViewById(R.id.dummy_button).setOnTouchListener(
-				mDelayHideTouchListener);
-		
-		//initArcMenu(arcMenu, ITEM_DRAWABLES);
+//		findViewById(R.id.dummy_button).setOnTouchListener(
+//				mDelayHideTouchListener);
 	}
-
-	 private void initArcMenu(ArcMenu menu, int[] itemDrawables) {
+	
+    private void initArcMenu(ArcMenu menu, int[] itemDrawables) {
         final int itemCount = itemDrawables.length;
         for (int i = 0; i < itemCount; i++) {
             ImageView item = new ImageView(this);
@@ -169,45 +170,45 @@ public class HomeScreenActivity extends Activity {
         }
     }
 
-	@Override
-	protected void onPostCreate(Bundle savedInstanceState) {
-		super.onPostCreate(savedInstanceState);
-
-		// Trigger the initial hide() shortly after the activity has been
-		// created, to briefly hint to the user that UI controls
-		// are available.
-		delayedHide(500);
-	}
+//	@Override
+//	protected void onPostCreate(Bundle savedInstanceState) {
+//		super.onPostCreate(savedInstanceState);
+//
+//		// Trigger the initial hide() shortly after the activity has been
+//		// created, to briefly hint to the user that UI controls
+//		// are available.
+//		delayedHide(100);
+//	}
 
 	/**
 	 * Touch listener to use for in-layout UI controls to delay hiding the
 	 * system UI. This is to prevent the jarring behavior of controls going away
 	 * while interacting with activity UI.
 	 */
-	View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
-		@Override
-		public boolean onTouch(View view, MotionEvent motionEvent) {
-			if (AUTO_HIDE) {
-				delayedHide(AUTO_HIDE_DELAY_MILLIS);
-			}
-			return false;
-		}
-	};
+//	View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
+//		@Override
+//		public boolean onTouch(View view, MotionEvent motionEvent) {
+//			if (AUTO_HIDE) {
+//				delayedHide(AUTO_HIDE_DELAY_MILLIS);
+//			}
+//			return false;
+//		}
+//	};
 
-	Handler mHideHandler = new Handler();
-	Runnable mHideRunnable = new Runnable() {
-		@Override
-		public void run() {
-			mSystemUiHider.hide();
-		}
-	};
+//	Handler mHideHandler = new Handler();
+//	Runnable mHideRunnable = new Runnable() {
+//		@Override
+//		public void run() {
+//			mSystemUiHider.hide();
+//		}
+//	};
 
 	/**
 	 * Schedules a call to hide() in [delay] milliseconds, canceling any
 	 * previously scheduled calls.
 	 */
-	private void delayedHide(int delayMillis) {
-		mHideHandler.removeCallbacks(mHideRunnable);
-		mHideHandler.postDelayed(mHideRunnable, delayMillis);
-	}
+//	private void delayedHide(int delayMillis) {
+//		mHideHandler.removeCallbacks(mHideRunnable);
+//		mHideHandler.postDelayed(mHideRunnable, delayMillis);
+//	}
 }
