@@ -53,7 +53,7 @@ public class HomeScreenActivity extends Activity {
 	private ArcMenu arcMenu;
 	private Animation animation;
 	
-	private static int[] ITEM_DRAWABLES = { R.drawable.product_icon, R.drawable.shop_icon,
+	private static final int[] ITEM_DRAWABLES = { R.drawable.product_icon, R.drawable.shop_icon,
 		R.drawable.store_owner, R.drawable.settings_icon, R.drawable.forum_icon};
 	
 	@Override

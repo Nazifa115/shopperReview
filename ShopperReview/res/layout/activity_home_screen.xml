@@ -12,7 +12,6 @@
         android:layout_height="fill_parent"
         android:layout_gravity="center"
         android:gravity="center"
-        android:keepScreenOn="true"
         arc:childSize="@dimen/menuChildSize"
         arc:fromDegrees="@dimen/menuFromDegrees"
         arc:toDegrees="@dimen/menuToDegrees" />
