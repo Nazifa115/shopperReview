@@ -78,18 +78,20 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int store_icon=0x7f020013;
         public static final int store_owner=0x7f020014;
         public static final int store_owner_icon=0x7f020015;
-        public static final int white_blue_home=0x7f020016;
-        public static final int white_favourite=0x7f020017;
-        public static final int white_home_icon=0x7f020018;
-        public static final int white_product=0x7f020019;
+        public static final int title_name=0x7f020016;
+        public static final int white_blue_home=0x7f020017;
+        public static final int white_favourite=0x7f020018;
+        public static final int white_home_icon=0x7f020019;
+        public static final int white_product=0x7f02001a;
     }
     public static final class id {
-        public static final int control_hint=0x7f080005;
-        public static final int control_layout=0x7f080004;
-        public static final int dummy_button=0x7f080002;
-        public static final int fullscreen_content=0x7f080000;
-        public static final int fullscreen_content_controls=0x7f080001;
-        public static final int item_layout=0x7f080003;
+        public static final int control_hint=0x7f080006;
+        public static final int control_layout=0x7f080005;
+        public static final int dummy_button=0x7f080003;
+        public static final int fullscreen_content=0x7f080001;
+        public static final int fullscreen_content_controls=0x7f080002;
+        public static final int item_layout=0x7f080004;
+        public static final int title=0x7f080000;
     }
     public static final class layout {
         public static final int activity_home_screen=0x7f030000;
