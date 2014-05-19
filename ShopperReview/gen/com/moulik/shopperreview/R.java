@@ -106,13 +106,14 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int dummy_button=0x7f090004;
         public static final int fullscreen_content=0x7f090001;
         public static final int fullscreen_content_controls=0x7f090003;
-        public static final int imageView1=0x7f09000b;
-        public static final int imageView2=0x7f09000c;
+        public static final int imageView1=0x7f09000c;
+        public static final int imageView2=0x7f09000d;
         public static final int item_layout=0x7f090005;
-        public static final int linearLayout1=0x7f09000a;
-        public static final int productSearchView=0x7f090008;
-        public static final int relativeLayout1=0x7f090009;
-        public static final int threeDListView=0x7f09000d;
+        public static final int linearLayout1=0x7f09000b;
+        public static final int productSearchView=0x7f090009;
+        public static final int relativeLayout1=0x7f09000a;
+        public static final int searchLayout=0x7f090008;
+        public static final int threeDListView=0x7f09000e;
         public static final int title=0x7f090002;
         public static final int titleText=0x7f090000;
     }
