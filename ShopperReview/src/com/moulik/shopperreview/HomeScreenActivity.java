@@ -13,6 +13,7 @@ import android.widget.ImageView;
 
 import com.capricorn.ArcMenu;
 import com.moulik.shopperreview.productSearch.ProductSearch;
+import com.moulik.shopperreview.storeSearch.StoreSearch;
 import com.moulik.shopperreview.util.SystemUiHider;
 
 /**
@@ -170,6 +171,9 @@ public class HomeScreenActivity extends Activity {
 				public void onClick(View v) {
 					if (position == 0) {
 						Intent productIntent = new Intent(getApplicationContext(), ProductSearch.class);
+						startActivity(productIntent);
+					}else if (position == 1) {
+						Intent productIntent = new Intent(getApplicationContext(), StoreSearch.class);
 						startActivity(productIntent);
 					}
 				}

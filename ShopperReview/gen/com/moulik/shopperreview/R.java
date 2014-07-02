@@ -123,7 +123,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int arc_menu=0x7f030002;
         public static final int product_search_layout=0x7f030003;
         public static final int ray_menu=0x7f030004;
-        public static final int three_d_list=0x7f030005;
+        public static final int search_store_layout=0x7f030005;
+        public static final int three_d_list=0x7f030006;
     }
     public static final class string {
         public static final int app_name=0x7f070000;

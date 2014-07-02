@@ -18,6 +18,7 @@
     </style>
 
     <style name="GeneralTheme" parent="android:Theme.Holo">
+        <item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>
         <item name="android:windowBackground">@drawable/background_gradient</item>
         <item name="buttonBarStyle">?android:attr/buttonBarStyle</item>
         <item name="buttonBarButtonStyle">?android:attr/buttonBarButtonStyle</item>

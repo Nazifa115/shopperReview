@@ -44,6 +44,19 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
+        <activity
+            android:name="com.moulik.shopperreview.storeSearch.StoreSearch"
+            android:label="@string/title_activity_product_search"
+            android:screenOrientation="portrait"
+            android:theme="@style/GeneralTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
     </application>
 
 </manifest>
