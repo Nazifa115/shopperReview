@@ -32,7 +32,7 @@ public class ProductSearch extends Activity {
 		final ThreeDListAdapter adapter = new ThreeDListAdapter(this);
 
 		SAMPLE_ITEMS_ME = new ArrayList<AdapterItemVO>();
-		SAMPLE_ITEMS_ME.add(new AdapterItemVO("Item 1", R.drawable.sample_1));
+		SAMPLE_ITEMS_ME.add(new AdapterItemVO("Item 1, A big address consisiting of several long long long long long lines", R.drawable.sample_1));
 		SAMPLE_ITEMS_ME.add(new AdapterItemVO("Item 2", R.drawable.sample_2));
 		// SAMPLE_ITEMS_ME.add(new AdapterItemVO("Item 3",
 		// R.drawable.sample_3));

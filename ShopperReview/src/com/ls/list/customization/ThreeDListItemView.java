@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.ls.list.threed.ThreeDListView;
@@ -24,23 +25,21 @@ import com.moulik.shopperreview.R;
  * view you want, but as soon as we use drawing cache to increase performance,
  * transparent regions may appear black on views, so it's recommended to
  * override "getDrawingCache" method , in case your view includes transparent
- * regions. For this purpose you should override:
- * - setDrawingCacheEnabled
- * - isDrawingCacheEnabled
- * - getDrawingCache
- * Also don't forget to invalidate drawing cache after data set change.
+ * regions. For this purpose you should override: - setDrawingCacheEnabled -
+ * isDrawingCacheEnabled - getDrawingCache Also don't forget to invalidate
+ * drawing cache after data set change.
  * 
  * @author Lemberg Solutions
  * 
  */
-public class ThreeDListItemView extends LinearLayout
-{
+public class ThreeDListItemView extends LinearLayout {
 	public final static String TAG = ThreeDListView.class.getName();
 
-	private final static float DIP_FACTOR = Resources.getSystem().getDisplayMetrics().density;
+	private final static float DIP_FACTOR = Resources.getSystem()
+			.getDisplayMetrics().density;
 
 	private final static int VIEW_PADDING_LEFT = 17;
-	
+
 	private final static int IMAGE_WIDTH = 176;
 	private final static float IMAGE_HEIGHT = 100f;
 
@@ -61,153 +60,152 @@ public class ThreeDListItemView extends LinearLayout
 	private Drawable selectedBG;
 	private Drawable deselectedBG;
 
-	//We use this flag in order to define if view was highlighted in ThreeDListView
+	// We use this flag in order to define if view was highlighted in
+	// ThreeDListView
 	private boolean checked;
 
-	//This fields are responsible for containing drawing cache data
+	// This fields are responsible for containing drawing cache data
 	private Paint cachePaint;
 	private Bitmap drawingCache;
 	private boolean useDrawingCache;
 
-	public ThreeDListItemView(final Context context)
-	{
+	public ThreeDListItemView(final Context context) {
 		super(context);
 		this.setOrientation(LinearLayout.HORIZONTAL);
 		this.setGravity(Gravity.CENTER_VERTICAL);
 		this.selectedBG = new ColorDrawable(Color.TRANSPARENT);
-		this.deselectedBG = this.getResources().getDrawable(R.drawable.fading_bg);
+		this.deselectedBG = this.getResources().getDrawable(
+				R.drawable.fading_bg);
 		this.setBackgroundDrawable(deselectedBG);
 		addImageView();
-		addTextLayout();		
+		addTextLayout();
+		addratingLayout();
 		this.setPadding((int) (VIEW_PADDING_LEFT * DIP_FACTOR), 0, 0, 0);
 		this.checked = false;
 		this.cachePaint = new Paint();
 		this.useDrawingCache = true;
 	}
 
-	private void addImageView()
-	{
+	private void addImageView() {
 		this.image = new ImageView(this.getContext());
 		this.image.setScaleType(ScaleType.FIT_CENTER);
-		this.image.setPadding((int) (IMAGE_PADDING_X * DIP_FACTOR), (int) (IMAGE_PADDING_Y * DIP_FACTOR), (int) (IMAGE_PADDING_X * DIP_FACTOR),
+		this.image.setPadding((int) (IMAGE_PADDING_X * DIP_FACTOR),
+				(int) (IMAGE_PADDING_Y * DIP_FACTOR),
+				(int) (IMAGE_PADDING_X * DIP_FACTOR),
 				(int) (IMAGE_PADDING_Y * DIP_FACTOR));
-		LayoutParams layP = new LayoutParams((int) (IMAGE_WIDTH * DIP_FACTOR), (int) (IMAGE_HEIGHT * DIP_FACTOR));
+		LayoutParams layP = new LayoutParams((int) (IMAGE_WIDTH * DIP_FACTOR),
+				(int) (IMAGE_HEIGHT * DIP_FACTOR));
 		this.image.setLayoutParams(layP);
 		this.addView(image);
 	}
 
-	private void setTextView(final ViewGroup theParent)
-	{
+	private void setTextView(final ViewGroup theParent) {
 		this.text = new TextView(getContext());
 		this.text.setTextSize(TEXT_SIZE);
-		this.text.setPadding((int) (TEXT_PADDING_LEFT * DIP_FACTOR), 0, 0, 0);
+		this.text.setPadding((int) (TEXT_PADDING_LEFT * DIP_FACTOR),
+				(int) ((TEXT_PADDING_LEFT * DIP_FACTOR) / 4), 0, 0);
 		this.text.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
 		this.text.setTextColor(TEXT_COLOR);
 		this.text.setMaxLines(2);
 		float textShadowRadius = DIP_FACTOR * TEXT_SHADOW_RADIUS;
-		this.text.setShadowLayer(textShadowRadius, 0, -textShadowRadius, TEXT_SHADOW_COLOR);
-		this.text.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 1));
+		this.text.setShadowLayer(textShadowRadius, 0, -textShadowRadius,
+				TEXT_SHADOW_COLOR);
+		this.text.setLayoutParams(new LinearLayout.LayoutParams(
+				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, 1));
 		theParent.addView(this.text);
 	}
 
-	private void addTextLayout()
-	{
+	private void addTextLayout() {
 		textLayout = new LinearLayout(getContext());
 		textLayout.setOrientation(LinearLayout.HORIZONTAL);
-		textLayout.setGravity(Gravity.CENTER_VERTICAL);
-		textLayout.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, (int) (TEXT_VIEW_HEIGHT * DIP_FACTOR)));
+		// textLayout.setGravity(Gravity.CENTER_VERTICAL);
+		textLayout.setGravity(Gravity.TOP);
+		textLayout.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
+				(int) (TEXT_VIEW_HEIGHT * DIP_FACTOR)));
 		this.addView(textLayout);
 
 		setTextView(textLayout);
 	}
 
-	public boolean isChecked()
-	{
+	private void addratingLayout() {
+		RatingBar rating =
+				  new RatingBar(getContext(), null, android.R.attr.ratingBarStyleSmall);
+		this.text.setPadding((int) (TEXT_PADDING_LEFT * DIP_FACTOR),
+				(int) ((TEXT_PADDING_LEFT * DIP_FACTOR) * 2), 0, 0);
+		this.addView(rating);
+
+	}
+
+	public boolean isChecked() {
 		return this.checked;
 	}
 
-	public void setChecked(final boolean theChecked)
-	{
-		if (theChecked != this.isChecked())
-		{
+	public void setChecked(final boolean theChecked) {
+		if (theChecked != this.isChecked()) {
 			this.checked = theChecked;
 			validateState();
 			this.invalidateCache();
 		}
 	}
 
-	public void validateState()
-	{
-		if (this.isChecked())
-		{
+	public void validateState() {
+		if (this.isChecked()) {
 			this.setBackgroundDrawable(selectedBG);
-		} else
-		{
+		} else {
 			this.setBackgroundDrawable(deselectedBG);
 		}
 	}
 
-	public void setText(final String theText)
-	{
+	public void setText(final String theText) {
 		this.text.setText(theText);
 		this.invalidateCache();
 	}
 
-	public void setText(final Spannable theText)
-	{
+	public void setText(final Spannable theText) {
 		this.text.setText(theText);
 		this.invalidateCache();
 	}
 
-	public void setImage(final int theRes)
-	{
+	public void setImage(final int theRes) {
 		this.image.setImageResource(theRes);
 	}
 
 	@Override
-	public void onDraw(final Canvas theCanvas)
-	{
+	public void onDraw(final Canvas theCanvas) {
 		// Here we're storing drawing cache
-		if (this.isDrawingCacheEnabled())
-		{
-			if (this.drawingCache == null)
-			{
-				this.drawingCache = Bitmap.createBitmap(theCanvas.getWidth(), theCanvas.getHeight(), Bitmap.Config.ARGB_8888);
+		if (this.isDrawingCacheEnabled()) {
+			if (this.drawingCache == null) {
+				this.drawingCache = Bitmap.createBitmap(theCanvas.getWidth(),
+						theCanvas.getHeight(), Bitmap.Config.ARGB_8888);
 				Canvas view = new Canvas(this.drawingCache);
 				super.draw(view);
 			}
 			theCanvas.drawBitmap(drawingCache, 0, 0, cachePaint);
-		} else
-		{
+		} else {
 			super.onDraw(theCanvas);
 		}
 	}
 
 	@Override
-	public void setDrawingCacheEnabled(final boolean theUse)
-	{
+	public void setDrawingCacheEnabled(final boolean theUse) {
 		this.useDrawingCache = theUse;
 	}
 
 	@Override
-	public boolean isDrawingCacheEnabled()
-	{
+	public boolean isDrawingCacheEnabled() {
 		return this.useDrawingCache;
 	}
 
 	@Override
-	public Bitmap getDrawingCache()
-	{
+	public Bitmap getDrawingCache() {
 		return this.drawingCache;
 	}
 
-	public void invalidateCache()
-	{
+	public void invalidateCache() {
 		this.drawingCache = null;
 	}
 
-	public void setImage(final Drawable selectedImage)
-	{
+	public void setImage(final Drawable selectedImage) {
 		this.image.setImageDrawable(selectedImage);
 		this.invalidateCache();
 	}
